@@ -1,4 +1,6 @@
 use std::collections::HashSet;
+use std::hash::Hash;
+use std::hash::Hasher;
 
 /// This file describes the structure of a particle
 
@@ -16,22 +18,14 @@ pub struct Particle {
 
 impl PartialEq for Particle {
     fn eq(&self, other: &Particle) -> bool {
-        self == other
+        self.id == other.id
+    }
+}
+
+impl Hash for Particle {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.id.hash(state);
     }
 }
 
 impl Eq for Particle {}
-
-// impl Default for Particle {
-//     fn default() -> Particle {
-//         Particle {
-//             _type: 0,
-//             x: 0.0,
-//             y: 0.0,
-//             sx: 0.0,
-//             sy: 0.0,
-//             links: 0,
-//             bonds: HashSet::new(),
-//         }
-//     }
-// }
