@@ -1,6 +1,7 @@
 use std::collections::HashSet;
 use std::hash::Hash;
 use std::hash::Hasher;
+use std::vec::Vec;
 
 /// This file describes the structure of a particle
 
@@ -29,3 +30,12 @@ impl Hash for Particle {
 }
 
 impl Eq for Particle {}
+
+pub struct Link {
+    a: Particle,
+    b: Particle,
+}
+
+pub struct Field {
+    particles: Vec<Particle>,
+}
