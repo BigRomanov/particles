@@ -5,7 +5,7 @@ use std::vec::Vec;
 
 /// This file describes the structure of a particle
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct Particle {
     pub id: i32,
     pub _type: i32,
@@ -31,11 +31,22 @@ impl Hash for Particle {
 
 impl Eq for Particle {}
 
+impl Particle {
+    fn random() -> Particle {
+        Particle()
+    }
+}
+
 pub struct Link {
     a: Particle,
     b: Particle,
 }
 
+impl Link {
+    const LINK_FORCE : f64 = -0.015;
+}
+
+#[derive(Default, Clone)]
 pub struct Field {
     particles: Vec<Particle>,
 }
