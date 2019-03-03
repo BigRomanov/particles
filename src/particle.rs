@@ -2,12 +2,13 @@ use std::collections::HashSet;
 use std::hash::Hash;
 use std::hash::Hasher;
 use std::vec::Vec;
+use rand::Rng;
 
 /// This file describes the structure of a particle
 
-#[derive(Default, Clone)]
+#[derive(Debug,Default, Clone)]
 pub struct Particle {
-    pub id: i32,
+    pub id: u32,
     pub _type: i32,
     pub x: f64,
     pub y: f64,
@@ -32,8 +33,19 @@ impl Hash for Particle {
 impl Eq for Particle {}
 
 impl Particle {
-    fn random() -> Particle {
-        Particle()
+    pub fn random(id: u32, types : u32, width : u32, height : u32) -> Particle {
+
+        // Create random type x and y
+        let mut rng = rand::thread_rng();
+
+        let mut p = Particle::default();
+
+        p.id = id;
+        p._type = rng.gen_range(0, types as i32);
+        p.x    = rng.gen_range(0.0, width as f64) as f64;
+        p.y    = rng.gen_range(0.0, height as f64);
+
+        p
     }
 }
 
@@ -49,4 +61,10 @@ impl Link {
 #[derive(Default, Clone)]
 pub struct Field {
     particles: Vec<Particle>,
+}
+
+impl Field {
+    pub fn add(&mut self, p : Particle) {
+        self.particles.push(p);
+    }
 }
